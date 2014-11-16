@@ -26,6 +26,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.data_bags_path = "data_bags"
 
     # Install the chef cookbooks
-    # chef.add_recipe "rails_app"
+    chef.add_recipe "rendezvous"
   end
 end
