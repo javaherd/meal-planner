@@ -1,5 +1,5 @@
 .vagrant/*
 /tmp/*
-/cookbooks/*
-/nodes/*
-!/nodes/sample.json
+/chef/cookbooks/*
+/chef/nodes/*
+!/chef/nodes/sample.json

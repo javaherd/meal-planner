@@ -8,7 +8,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
 
   #Share the app folder with the VM
-  config.vm.synced_folder "../app", "/var/www/app"
+  config.vm.synced_folder ".", "/var/www/rendezvous"
 
   # Configurate the virtual machine to use 1GB of RAM
   config.vm.provider :virtualbox do |vb|
@@ -20,10 +20,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Use Chef Solo to provision our virtual machine
   config.vm.provision :chef_solo do |chef|
-    # Define the checf variables
-    chef.cookbooks_path = ["cookbooks", "site-cookbooks"]
-    chef.roles_path = "roles"
-    chef.data_bags_path = "data_bags"
+    # Define the chef variables
+    chef.node_name = "development"
+    chef.cookbooks_path = ["chef/cookbooks", "chef/site-cookbooks"]
+    chef.data_bags_path = "chef/data_bags"
 
     # Install the chef cookbooks
     chef.add_recipe "rendezvous"
