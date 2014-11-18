@@ -1,0 +1,8 @@
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: rendezvous
+  pool: 5
+  host: localhost
+  username: bob
+  password: secret
