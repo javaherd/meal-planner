@@ -21,11 +21,36 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Use Chef Solo to provision our virtual machine
   config.vm.provision :chef_solo do |chef|
     # Define the chef variables
-    chef.node_name = "development"
     chef.cookbooks_path = ["chef/cookbooks", "chef/site-cookbooks"]
     chef.data_bags_path = "chef/data_bags"
 
+    chef.json = {
+      "port" => 22,
+
+      "user" => {
+        "name" => "vagrant",
+        "password" => "password-shadow-hash"
+      },
+
+      "db" => {
+        "root_password" => "secret",
+        "user" => {
+          "name" => "bob",
+          "password" => "secret"
+        }
+      }
+    }
+
     # Install the chef cookbooks
     chef.add_recipe "rendezvous"
+    chef.add_recipe "rendezvous::users"
+    chef.add_recipe "rendezvous::ssh"
+    chef.add_recipe "rendezvous::nodejs"
+    chef.add_recipe "rendezvous::passenger"
+    chef.add_recipe "rendezvous::postgres"
+    chef.add_recipe "rendezvous::rbenv"
+    chef.add_recipe "rendezvous::redis"
+    chef.add_recipe "rendezvous::nginx"
+    chef.add_recipe "rendezvous::app"
   end
 end

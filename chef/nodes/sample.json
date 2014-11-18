@@ -4,6 +4,7 @@
     "recipe[rendezvous::users]",
     "recipe[rendezvous::ssh]",
     "recipe[rendezvous::nodejs]",
+    "recipe[rendezvous::passenger]",
     "recipe[rendezvous::postgres]",
     "recipe[rendezvous::rbenv]",
     "recipe[rendezvous::redis]",
