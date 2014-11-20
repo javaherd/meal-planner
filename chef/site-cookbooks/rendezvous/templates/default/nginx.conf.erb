@@ -1,26 +1,15 @@
-upstream unicorn {
-  server unix:/tmp/unicorn.<%= node['app'] %>.sock fail_timeout=0;
-}
-
 server {
-  server_name www.<%= node['app'] %>.com;
-  return 301 $scheme://<%= node['app'] %>.com$request_uri;
-}
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
 
-server {
-  listen 80 default deferred;
-  server_name <%= node['app'] %>.com;
-  root /var/www/<%= node['app'] %>/current/public;
+        server_name       <%= node['app']['name'] %>.com;
+        passenger_enabled on;
+        rails_env         <%= node['app']['env'] %>;
+        root              /var/www/<%= node['app']['name'] %>/public;
 
-  passenger_enabled on;
-
-  location ^~ /assets/ {
-    gzip_static on;
-    expires max;
-    add_header Cache-Control public;
-  }
-
-  error_page 500 502 503 504 /500.html;
-  keepalive_timeout 5;
-
+        # redirect server error pages to the static page /50x.html
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
 }

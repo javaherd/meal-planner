@@ -8,7 +8,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
 
   #Share the app folder with the VM
-  config.vm.synced_folder ".", "/var/www/rendezvous"
+  config.vm.synced_folder ".", "/var/www/"
 
   # Configurate the virtual machine to use 1GB of RAM
   config.vm.provider :virtualbox do |vb|
@@ -28,13 +28,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.data_bags_path = "chef/data_bags"
 
     chef.json = {
+        :user => {
+            :name => "vagrant",
+        },
+        :group => "vagrant",
+        :app => {
+            :name => "rendezvous",
+            :env => 'development'
+        },
         :rvm => {
             :default_ruby => "ruby-2.1.5",
             :gems => {
                 "ruby-2.1.5" => [
                     {:name => "bundler"},
                     {:name => "rake"},
-                    {:name => "rails", :version => "4.1.8" }
+                    {:name => "rails", :version => "4.1.8" },
+                    {:name => "pg", :version => "0.17.1"}
                 ],
             },
             :rvm_string => "ruby-2.1.5",
@@ -45,43 +54,55 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         :nginx => {
             :repo_source => "phusionpassenger",
             :version => "1.6.2",
-            :dir => "/etc/nginx",
-            :log_dir => "/var/log/nginx",
-            :binary => "/opt/nginx-1.6.2/sbin",
-            :user => "develop",
-            :init_style => "init",
-            :source => {
-                :modules => [
-                    "nginx::http_stub_status_module",
-                    "nginx::http_ssl_module",
-                    "nginx::http_gzip_static_module",
-                    "nginx::passenger",
-                ]
-            },
+            # :dir => "/etc/nginx",
+            # :log_dir => "/var/log/nginx",
+            # :binary => "/opt/nginx-1.6.2/sbin",
+            # :user => "develop",
+            # :init_style => "init",
+            # :source => {
+            #     :modules => [
+            #         "nginx::http_stub_status_module",
+            #         "nginx::http_ssl_module",
+            #         "nginx::http_gzip_static_module",
+            #         "nginx::passenger",
+            #     ]
+            # },
             :passenger => {
                 :version => "4.0.53",
-                :ruby => "/usr/local/rvm/rubies/ruby-2.1.5/bin/ruby",
-                :root => "/usr/local/rvm/gems/ruby-2.1.5/gems/passenger-4.0.53",
-                :gem_binary => "/usr/local/rvm/wrappers/ruby-2.1.5/gem"
+                :ruby => "/usr/local/rvm/gems/ruby-2.1.5/wrappers/ruby",
+                :root => "/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini",
             },
+        },
+        :postgresql => {
+            :password => {
+                # Username: postgres, Password: devpassword
+                :postgres => "6380c69680dd5739137fbed091c03108"
+            }
         }
     }
 
     # Install the chef cookbooks
-    #chef.add_recipe "rendezvous"
-    #chef.add_recipe "rendezvous::nodejs"
-    #chef.add_recipe "rendezvous::passenger"
-    #chef.add_recipe "rendezvous::postgres"
-    #chef.add_recipe "rendezvous::rbenv"
+    chef.add_recipe "rendezvous"
+
+    #chef.add_recipe "rendezvous::app"
+
+    chef.add_recipe "rendezvous::nodejs"
+
     #chef.add_recipe "rendezvous::redis"
-    #chef.add_recipe "nginx"
-    chef.add_recipe 'apt'
-    #chef.add_recipe 'build-essential'
+
     chef.add_recipe "rvm::system"
     chef.add_recipe "rvm::vagrant"
     chef.add_recipe 'rvm::gem_package'
+
     chef.add_recipe "nginx"
-    #chef.add_recipe "rendezvous::nginx"
-    #chef.add_recipe "rendezvous::app"
+    chef.add_recipe "nginx::passenger"
+    chef.add_recipe "rendezvous::nginx"
+
+    chef.add_recipe "postgresql"
+    chef.add_recipe "postgresql::server"
+
+    chef.add_recipe "redisio"
+    chef.add_recipe "redisio::enable"
+
   end
 end
