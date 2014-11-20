@@ -6,13 +6,6 @@ SITE
       rsyslog (>= 0.0.0)
     build-essential (2.1.3)
     chef_gem (0.1.0)
-    nginx (2.4.4)
-      apt (~> 2.2)
-      bluepill (~> 2.3)
-      build-essential (~> 2.0)
-      ohai (~> 1.1)
-      runit (~> 1.2)
-      yum-epel (~> 0.3)
     ohai (1.1.12)
     rsyslog (1.12.2)
     runit (1.5.10)
@@ -25,9 +18,22 @@ SITE
     yum-epel (0.5.2)
       yum (~> 3.0)
 
+GIT
+  remote: https://github.com/bitcellar-labs/nginx
+  ref: features/prebuilt-passenger
+  sha: cf38ba30bc4a22193a79e06e3ac2dd1027e43ebe
+  specs:
+    nginx (2.4.5)
+      apt (~> 2.2)
+      bluepill (~> 2.3)
+      build-essential (~> 2.0)
+      ohai (~> 1.1)
+      runit (~> 1.2)
+      yum-epel (~> 0.3)
+
 DEPENDENCIES
   apt (>= 0)
   build-essential (>= 0)
-  nginx (= 2.4.4)
+  nginx (>= 0)
   rvm (>= 0)
 

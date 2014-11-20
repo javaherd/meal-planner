@@ -4,7 +4,9 @@
 site 'https://supermarket.getchef.com/api/v1'
 
   cookbook 'apt'
-  cookbook 'nginx', '= 2.4.4'
+  cookbook 'nginx',
+    :git => "https://github.com/bitcellar-labs/nginx",
+    :ref => "features/prebuilt-passenger"
   cookbook 'rvm'
   cookbook 'build-essential'
 

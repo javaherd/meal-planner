@@ -43,6 +43,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             }
         },
         :nginx => {
+            :repo_source => "phusionpassenger",
             :version => "1.6.2",
             :dir => "/etc/nginx",
             :log_dir => "/var/log/nginx",
@@ -75,11 +76,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #chef.add_recipe "rendezvous::redis"
     #chef.add_recipe "nginx"
     chef.add_recipe 'apt'
-    chef.add_recipe 'build-essential'
+    #chef.add_recipe 'build-essential'
     chef.add_recipe "rvm::system"
     chef.add_recipe "rvm::vagrant"
     chef.add_recipe 'rvm::gem_package'
-    chef.add_recipe "nginx::source"
+    chef.add_recipe "nginx"
     #chef.add_recipe "rendezvous::nginx"
     #chef.add_recipe "rendezvous::app"
   end
