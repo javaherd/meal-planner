@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Configurate the virtual machine to use 1GB of RAM
   config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "512"]
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
 
   # Give the virtual machine an IP
@@ -28,46 +28,59 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.data_bags_path = "chef/data_bags"
 
     chef.json = {
-      "port" => 22,
-
-      "user" => {
-        "name" => "vagrant",
-        "password" => "password-shadow-hash"
-      },
-
-      :group => "vagrant",
-
-      :nginx => {
-        :version => "1.4.1",
-        :dir => "/etc/nginx",
-        :log_dir => "/var/log/nginx",
-        :binary => "/opt/nginx-1.4.1/sbin",
-        :user => "develop",
-        :init_style => "init",
-        :passenger => {
-            :ruby => "/home/vagrant/.rbenv/shims/ruby",
+        :rvm => {
+            :default_ruby => "ruby-2.1.5",
+            :gems => {
+                "ruby-2.1.5" => [
+                    {:name => "bundler"},
+                    {:name => "rake"},
+                    {:name => "rails", :version => "4.1.8" }
+                ],
+            },
+            :rvm_string => "ruby-2.1.5",
+            :vagrant => {
+                :system_chef_solo => '/usr/bin/chef-solo'
+            }
+        },
+        :nginx => {
+            :version => "1.6.2",
+            :dir => "/etc/nginx",
+            :log_dir => "/var/log/nginx",
+            :binary => "/opt/nginx-1.6.2/sbin",
+            :user => "develop",
+            :init_style => "init",
+            :source => {
+                :modules => [
+                    "nginx::http_stub_status_module",
+                    "nginx::http_ssl_module",
+                    "nginx::http_gzip_static_module",
+                    "nginx::passenger",
+                ]
+            },
+            :passenger => {
+                :version => "4.0.53",
+                :ruby => "/usr/local/rvm/rubies/ruby-2.1.5/bin/ruby",
+                :root => "/usr/local/rvm/gems/ruby-2.1.5/gems/passenger-4.0.53",
+                :gem_binary => "/usr/local/rvm/wrappers/ruby-2.1.5/gem"
+            },
         }
-      },
-
-      "db" => {
-        "root_password" => "secret",
-        "user" => {
-          "name" => "bob",
-          "password" => "secret"
-        }
-      }
     }
 
     # Install the chef cookbooks
-    chef.add_recipe "rendezvous"
-    chef.add_recipe "rendezvous::nodejs"
-    chef.add_recipe "rendezvous::passenger"
-    chef.add_recipe "rendezvous::postgres"
-    chef.add_recipe "rendezvous::rbenv"
-    chef.add_recipe "rendezvous::redis"
-    chef.add_recipe "nginx"
-    chef.add_recipe "nginx::passenger"
-    chef.add_recipe "rendezvous::nginx"
-    chef.add_recipe "rendezvous::app"
+    #chef.add_recipe "rendezvous"
+    #chef.add_recipe "rendezvous::nodejs"
+    #chef.add_recipe "rendezvous::passenger"
+    #chef.add_recipe "rendezvous::postgres"
+    #chef.add_recipe "rendezvous::rbenv"
+    #chef.add_recipe "rendezvous::redis"
+    #chef.add_recipe "nginx"
+    chef.add_recipe 'apt'
+    chef.add_recipe 'build-essential'
+    chef.add_recipe "rvm::system"
+    chef.add_recipe "rvm::vagrant"
+    chef.add_recipe 'rvm::gem_package'
+    chef.add_recipe "nginx::source"
+    #chef.add_recipe "rendezvous::nginx"
+    #chef.add_recipe "rendezvous::app"
   end
 end

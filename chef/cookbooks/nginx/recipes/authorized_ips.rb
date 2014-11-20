@@ -26,7 +26,7 @@ template 'authorized_ip' do
   path   "#{node['nginx']['dir']}/authorized_ip"
   source 'modules/authorized_ip.erb'
   owner  'root'
-  group  node['root_group']
+  group  'root'
   mode   '0644'
   notifies :reload, 'service[nginx]'
 end

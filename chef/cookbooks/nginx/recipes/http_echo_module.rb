@@ -27,7 +27,7 @@ remote_file echo_src_filepath do
   source   node['nginx']['echo']['url']
   checksum node['nginx']['echo']['checksum']
   owner    'root'
-  group    node['root_group']
+  group    'root'
   mode     '0644'
 end
 

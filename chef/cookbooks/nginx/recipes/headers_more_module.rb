@@ -25,13 +25,13 @@ remote_file tar_location do
   source   node['nginx']['headers_more']['source_url']
   checksum node['nginx']['headers_more']['source_checksum']
   owner    'root'
-  group    node['root_group']
+  group    'root'
   mode     '0644'
 end
 
 directory module_location do
   owner     'root'
-  group     node['root_group']
+  group     'root'
   mode      '0755'
   recursive true
   action    :create

@@ -39,7 +39,7 @@ end
 template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
   source 'modules/passenger.conf.erb'
   owner  'root'
-  group  node['root_group']
+  group  'root'
   mode   '0644'
   notifies :reload, 'service[nginx]'
 end

@@ -3,9 +3,10 @@
 
 site 'https://supermarket.getchef.com/api/v1'
 
-site 'http://community.opscode.com/api/v1'
   cookbook 'apt'
-  cookbook 'nginx'
+  cookbook 'nginx', '= 2.4.4'
+  cookbook 'rvm'
+  cookbook 'build-essential'
 
 # cookbook 'chef-client'
 

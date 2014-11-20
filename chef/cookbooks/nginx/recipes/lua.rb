@@ -25,7 +25,7 @@ remote_file luajit_src_filepath do
   source   node['nginx']['luajit']['url']
   checksum node['nginx']['luajit']['checksum']
   owner    'root'
-  group    node['root_group']
+  group    'root'
   mode     '0644'
 end
 

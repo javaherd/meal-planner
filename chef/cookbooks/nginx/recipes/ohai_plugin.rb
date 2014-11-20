@@ -27,7 +27,7 @@ end
 template "#{node['ohai']['plugin_path']}/nginx.rb" do
   source 'plugins/nginx.rb.erb'
   owner  'root'
-  group  node['root_group']
+  group  'root'
   mode   '0755'
   notifies :reload, 'ohai[reload_nginx]', :immediately
 end

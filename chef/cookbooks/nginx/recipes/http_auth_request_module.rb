@@ -33,7 +33,7 @@ else
     source   node['nginx']['auth_request']['url']
     checksum node['nginx']['auth_request']['checksum']
     owner    'root'
-    group    node['root_group']
+    group    'root'
     mode     '0644'
   end
 
