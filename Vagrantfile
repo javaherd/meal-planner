@@ -52,7 +52,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             }
         },
         :nginx => {
-            :repo_source => "phusionpassenger",
             :version => "1.6.2",
             # :dir => "/etc/nginx",
             # :log_dir => "/var/log/nginx",
@@ -81,28 +80,34 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         }
     }
 
-    # Install the chef cookbooks
+    ## Install the chef cookbooks ##
+
+    # Basic utils apt, git etc. Add Phusion PPA
     chef.add_recipe "rendezvous"
 
-    #chef.add_recipe "rendezvous::app"
-
+    # node js install
     chef.add_recipe "rendezvous::nodejs"
 
-    #chef.add_recipe "rendezvous::redis"
-
+    # RVM install
     chef.add_recipe "rvm::system"
     chef.add_recipe "rvm::vagrant"
     chef.add_recipe 'rvm::gem_package'
 
+    # Nginx install (using phusion pre compilled binaries)
     chef.add_recipe "nginx"
     chef.add_recipe "nginx::passenger"
     chef.add_recipe "rendezvous::nginx"
 
+    # Postgres install
     chef.add_recipe "postgresql"
     chef.add_recipe "postgresql::server"
 
+    # Redis install
     chef.add_recipe "redisio"
     chef.add_recipe "redisio::enable"
+
+    # Rendezvous app setup (bundle install etc.)
+    # chef.add_recipe "rendezvous::app"
 
   end
 end

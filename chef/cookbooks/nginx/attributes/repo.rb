@@ -25,11 +25,11 @@ when 'rhel', 'fedora'
   when 'centos'
     # See http://wiki.nginx.org/Install
     default['nginx']['upstream_repository'] = "http://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch/"
+  when 'amazon'
+    default['nginx']['upstream_repository'] = "http://nginx.org/packages/rhel/6/$basearch/"
   else
     default['nginx']['upstream_repository'] = "http://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch/"
   end
-  default['nginx']['passenger_repository'] = "http://passenger.stealthymonkeys.com/rhel/#{node['platform_version'].to_i}/$basearch/"
 when 'debian'
   default['nginx']['upstream_repository'] = "http://nginx.org/packages/#{node['platform']}"
-  default['nginx']['passenger_repository'] = 'https://oss-binaries.phusionpassenger.com/apt/passenger'
 end

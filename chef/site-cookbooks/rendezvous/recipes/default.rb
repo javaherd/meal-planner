@@ -23,6 +23,8 @@ package "libxslt1-dev"
 package "libpq-dev"
 package "build-essential"
 package "tree"
+package "apt-transport-https"
+package "ca-certificates"
 
 # set timezone
 bash "set timezone" do
@@ -31,4 +33,13 @@ bash "set timezone" do
     dpkg-reconfigure -f noninteractive tzdata
   EOH
   not_if "date | grep -q 'GMT'"
+end
+
+# Add passenger apt repo
+apt_repository "nginx-php" do
+    uri "https://oss-binaries.phusionpassenger.com/apt/passenger"
+    distribution "trusty"
+    components ["main"]
+    keyserver "keyserver.ubuntu.com"
+    key "561F9B9CAC40B2F7"
 end

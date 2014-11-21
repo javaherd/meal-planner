@@ -1,14 +1,5 @@
-# create www directory
-directory "/var/www" do
-  user node['user']['name']
-  group node['group']
-  mode 0755
-end
-
-# create shared directory structure for app
-path = "/var/www/#{node['app']['name']}"
-execute "mkdir -p #{path}" do
-  user node['user']['name']
-  group node['group']
-  creates path
+# Install app bundle
+execute 'bundle install' do
+    cwd "/var/www/#{node['app']['name']}/"
+    not_if 'bundle check' # This is not run inside /myapp
 end

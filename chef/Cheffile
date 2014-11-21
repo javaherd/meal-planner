@@ -5,11 +5,7 @@ site 'https://supermarket.getchef.com/api/v1'
 
   cookbook 'apt'
 
-  # Using bitcellars nginx fork which includes support for
-  # the precompiled passenger-nginx binaries.
-  cookbook 'nginx',
-    :git => "https://github.com/bitcellar-labs/nginx",
-    :ref => "features/prebuilt-passenger"
+  cookbook 'nginx'
 
   cookbook 'rvm'
 
