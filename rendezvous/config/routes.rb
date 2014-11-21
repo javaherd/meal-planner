@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  scope "/api",
+    :controller => "api",
+    :as => "api",
+    :constraints => { :format => /json/ } do
+      match "location.:format",
+        :action => "get_location", :via => "get"
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
