@@ -1,0 +1,28 @@
+{
+  "run_list": [
+    "recipe[rendezvous]",
+    "recipe[rendezvous::users]",
+    "recipe[rendezvous::ssh]",
+    "recipe[rendezvous::nodejs]",
+    "recipe[rendezvous::passenger]",
+    "recipe[rendezvous::postgres]",
+    "recipe[rendezvous::rbenv]",
+    "recipe[rendezvous::redis]",
+    "recipe[rendezvous::nginx]",
+    "recipe[rendezvous::app]"
+  ],
+  "port": 22,
+
+  "user": {
+    "name": "vagrant",
+    "password": "password-shadow-hash"
+  },
+
+  "db": {
+    "root_password": "secret",
+    "user": {
+      "name": "bob",
+      "password": "secret"
+    }
+  }
+}

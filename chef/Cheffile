@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+#^syntax detection
+
+site 'https://supermarket.getchef.com/api/v1'
+
+  cookbook 'apt'
+
+  cookbook 'nginx'
+
+  cookbook 'rvm'
+
+  cookbook 'redisio', '~> 2.2.4'
+
+  cookbook 'postgresql', '~> 3.4.12'

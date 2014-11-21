@@ -1,2 +1,4 @@
 .vagrant/*
-
+chef/tmp/*
+chef/nodes/*
+!chef/nodes/sample.json
