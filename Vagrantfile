@@ -18,9 +18,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Give the virtual machine an IP
   config.vm.network 'private_network', ip: "192.145.1.23"
 
-  # Forward the Rails server default port to the host
-  config.vm.network :forwarded_port, guest: 22, host: 6351
-
   # Use Chef Solo to provision our virtual machine
   config.vm.provision :chef_solo do |chef|
     # Define the chef variables
