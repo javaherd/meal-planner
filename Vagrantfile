@@ -98,6 +98,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Postgres install
     chef.add_recipe "postgresql"
     chef.add_recipe "postgresql::server"
+    chef.add_recipe "rendezvous::postgres"
 
     # Redis install
     chef.add_recipe "redisio"
