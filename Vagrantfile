@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # Give the virtual machine an IP
-  config.vm.network 'private_network', ip: "192.145.1.25"
+  config.vm.network 'private_network', ip: "192.145.1.23"
 
   # Use Chef Solo to provision our virtual machine
   config.vm.provision :chef_solo do |chef|
