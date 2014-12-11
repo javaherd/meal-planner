@@ -1,0 +1,6 @@
+<h1>MealPlanner#show</h1>
+<% @recipes = Recipe.all %>
+<% @recipes.each do |recipe| %>
+  <%= recipe.name %>
+<% end %>
+<p></p>

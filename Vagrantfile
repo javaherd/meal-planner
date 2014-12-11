@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # Give the virtual machine an IP
-  config.vm.network 'private_network', ip: "192.145.1.23"
+  config.vm.network 'private_network', ip: "192.145.1.20"
 
   # Use Chef Solo to provision our virtual machine
   config.vm.provision :chef_solo do |chef|
@@ -30,7 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         },
         :group => "vagrant",
         :app => {
-            :name => "rendezvous",
+            :name => "meals",
             :env => 'development'
         },
         :rvm => {
@@ -80,32 +80,29 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ## Install the chef cookbooks ##
 
     # Basic utils apt, git etc. Add Phusion PPA
-    chef.add_recipe "rendezvous"
+    chef.add_recipe "meals"
 
     # node js install
-    chef.add_recipe "rendezvous::nodejs"
+    chef.add_recipe "meals::nodejs"
 
     # RVM install
     chef.add_recipe "rvm::system"
     chef.add_recipe "rvm::vagrant"
     chef.add_recipe 'rvm::gem_package'
 
-    # Nginx install (using phusion pre compilled binaries)
+    # Nginx install (using phusion pre compiled binaries)
     chef.add_recipe "nginx"
     chef.add_recipe "nginx::passenger"
-    chef.add_recipe "rendezvous::nginx"
+    chef.add_recipe "meals::nginx"
 
     # Postgres install
     chef.add_recipe "postgresql"
     chef.add_recipe "postgresql::server"
-    chef.add_recipe "rendezvous::postgres"
+    chef.add_recipe "meals::postgres"
 
     # Redis install
     chef.add_recipe "redisio"
     chef.add_recipe "redisio::enable"
-
-    # Rendezvous app setup (bundle install etc.)
-    # chef.add_recipe "rendezvous::app"
 
   end
 end
