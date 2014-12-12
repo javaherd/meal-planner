@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+  get 'recipes/create'
+
   get 'meal_planner/show'
 
   get 'meal_planner/create'
 
-  root to: 'recipe#view'
+  #root to: 'recipe#view'
+
+  resources :recipes
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
