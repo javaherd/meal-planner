@@ -1,6 +1,4 @@
-<% @recipe = Recipe.find(1) %>
-
-<%= form_for(@recipe) do |f| %>
+<%= form_for(Recipe.new) do |f| %>
   <div class="recipe_name">
     <%= f.label :name %><br />
     <%= f.text_field :name %><br />
@@ -8,13 +6,15 @@
   
   <div class="recipe_description">
     <%= f.label :description %><br />
-    <%= debug f.text_field :description %><br />
+    <%= f.text_area :description %><br />
   </div>
 
-  <% @recipe.recipe_ingredients.each do |assoc| %>
-    <%= f.fields_for :recipe_ingredients, assoc do |ingredient| %>
-       <%= ingredient.label assoc.ingredient.name %>
-       <%= ingredient.check_box :id %>
+  Ingredients:<br/>   
+  <%= f.fields_for :ingredient do |ingredient| %>
+    <% (1..7).each do |_| %>
+      <%= ingredient.fields_for :name do |array| %>
+        <%= array.text_field "" %></br>
+      <% end %>
     <% end %>
   <% end %>
 
