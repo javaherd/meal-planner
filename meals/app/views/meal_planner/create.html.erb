@@ -11,11 +11,11 @@
 
   Ingredients:<br/>   
   <%= f.fields_for :ingredient do |ingredient| %>
-    <%= ingredient.text_field :name %></br>
-    <%= ingredient.text_field :name %></br>
-    <%= ingredient.text_field :name %></br>
-    <%= ingredient.text_field :name %></br>
-    <%= ingredient.text_field :name %></br>
+    <% (1..7).each do |_| %>
+      <%= ingredient.fields_for :name do |array| %>
+        <%= array.text_field "" %></br>
+      <% end %>
+    <% end %>
   <% end %>
 
 
