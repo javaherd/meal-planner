@@ -12,6 +12,7 @@
     <ul>
       <% recipe.ingredients.each do |ingredient| %>
         <li><%= ingredient.name %></li>
+        <li><%= recipe.recipe_ingredients.find_by(ingredient_id: ingredient.id).quantity %></li>
       <% end %>
     </ul>
   </div>

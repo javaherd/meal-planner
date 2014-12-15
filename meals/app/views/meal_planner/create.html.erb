@@ -13,6 +13,11 @@
   <%= f.fields_for :ingredient do |ingredient| %>
     <% (1..7).each do |_| %>
       <%= ingredient.fields_for :name do |array| %>
+        <%= array.label "name" %>
+        <%= array.text_field "" %></br>
+      <% end %>
+      <%= ingredient.fields_for :quantity do |array| %>
+        <%= array.label "Quantity" %>
         <%= array.text_field "" %></br>
       <% end %>
     <% end %>
