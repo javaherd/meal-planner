@@ -29,6 +29,6 @@ end
 if RecipeIngredient.count == 0
   puts "Adding relations"
   Ingredient.find_each do |ingredient|
-    RecipeIngredient.create({ recipe_id: 1 , ingredient_id: ingredient.id })
+    RecipeIngredient.create({ recipe_id: 1 , ingredient_id: ingredient.id, quantity: 1 })
   end
 end
