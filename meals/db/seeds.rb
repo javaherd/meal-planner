@@ -1,34 +1,43 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-if Recipe.count == 0
-  puts "Adding coddle"
-  recipe = Recipe.create({ name: 'Coddle' , description: 'The loveliest meal to come out of Dublin' })
-end
-
-if Ingredient.count == 0
-  puts "Adding sausages nom nom nom"
-  Ingredient.create({ name: 'Sausage' })
-  puts "Adding potatoes"
-  Ingredient.create({ name: 'Potatoes' })
-  puts "Adding carrots"
-  Ingredient.create({ name: 'Carrots' })
-  puts "Adding rashers"
-  Ingredient.create({ name: 'Rashers' })
-  puts "Adding onion"
-  Ingredient.create({ name: 'Onion' })
-  puts "Adding parsley"
-  Ingredient.create({ name: 'Parsley' })
-end
-
-if RecipeIngredient.count == 0
-  puts "Adding relations"
-  Ingredient.find_each do |ingredient|
-    RecipeIngredient.create({ recipe_id: 1 , ingredient_id: ingredient.id })
-  end
-end
+Ingredient.create!([
+  {name: "Sausage"},
+  {name: "Potatoes"},
+  {name: "Carrots"},
+  {name: "Rashers"},
+  {name: "Onion"},
+  {name: "Parsley"},
+  {name: "Tomatos"},
+  {name: "Pasta"},
+  {name: "Mince"},
+  {name: "Garlic"},
+  {name: "Carrot"},
+  {name: "Wine"},
+  {name: "Rice"},
+  {name: "Chilli"}
+])
+Recipe.create!([
+  {name: "Coddle", description: "The loveliest meal to come out of Dublin"},
+  {name: "Pasta Bolognese", description: "Meaty and a-saucey, just-a like a mamma used to make!"},
+  {name: "Chilli Con Carne", description: "As hot and as fiery as you like it! ;)"}
+])
+RecipeIngredient.create!([
+  {recipe_id: 1, ingredient_id: 1, quantity: 1},
+  {recipe_id: 1, ingredient_id: 2, quantity: 1},
+  {recipe_id: 1, ingredient_id: 3, quantity: 1},
+  {recipe_id: 1, ingredient_id: 4, quantity: 1},
+  {recipe_id: 1, ingredient_id: 5, quantity: 1},
+  {recipe_id: 1, ingredient_id: 6, quantity: 1},
+  {recipe_id: 2, ingredient_id: 7, quantity: 6},
+  {recipe_id: 2, ingredient_id: 8, quantity: 1000},
+  {recipe_id: 2, ingredient_id: 9, quantity: 500},
+  {recipe_id: 2, ingredient_id: 5, quantity: 3},
+  {recipe_id: 2, ingredient_id: 10, quantity: 3},
+  {recipe_id: 2, ingredient_id: 11, quantity: 4},
+  {recipe_id: 2, ingredient_id: 12, quantity: 350},
+  {recipe_id: 3, ingredient_id: 7, quantity: 6},
+  {recipe_id: 3, ingredient_id: 13, quantity: 1000},
+  {recipe_id: 3, ingredient_id: 9, quantity: 500},
+  {recipe_id: 3, ingredient_id: 5, quantity: 3},
+  {recipe_id: 3, ingredient_id: 10, quantity: 3},
+  {recipe_id: 3, ingredient_id: 11, quantity: 4},
+  {recipe_id: 3, ingredient_id: 14, quantity: 4}
+])
