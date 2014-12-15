@@ -5,7 +5,7 @@ class RecipesController < ApplicationController
     recipe.description = params[:recipe][:description]
     recipe.save
 
-    params[:recipe][:ingredient][:name].each do |name|
+    params[:recipe][:ingredient][:name].each do |name, index|
       if name.blank?
         next
       end
@@ -21,7 +21,8 @@ class RecipesController < ApplicationController
       recipe_ingredient = RecipeIngredient.new
       recipe_ingredient.recipe_id = recipe.id
       recipe_ingredient.ingredient_id = ingredient.id
-      recipe_ingredient.quantity = 1
+      recipe_ingredient.quantity = params[:recipe][:ingredient][:quantity].shift
+
       recipe_ingredient.save
     end
   end
