@@ -1,17 +1,18 @@
 <% @recipes = Recipe.all %>
 <% @recipes.each do |recipe| %>
   <div class = "recipe-name">
-    <%= recipe.name %>
+    <h1><%= recipe.name %></h1>
   </div>
 
   <div class = "recipe-description">
-    <%= recipe.description %>
+    <h2><%= recipe.description %></h2>
   </div>
 
   <div class = "ingredients">
     <ul>
       <% recipe.ingredients.each do |ingredient| %>
-        <li><%= ingredient.name %></li>
+        <li><%= ingredient.name %>
+          (<i><%= recipe.recipe_ingredients.find_by(ingredient_id: ingredient.id).quantity %></i>)</li>
       <% end %>
     </ul>
   </div>
