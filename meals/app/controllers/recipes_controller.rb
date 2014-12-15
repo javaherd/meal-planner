@@ -6,9 +6,17 @@ class RecipesController < ApplicationController
     recipe.save
 
     params[:recipe][:ingredient][:name].each do |name|
-      ingredient = Ingredient.new
-      ingredient.name = name
-      ingredient.save
+      if name.blank?
+        next
+      end
+      
+      if Ingredient.where(name: name).blank?
+        ingredient = Ingredient.new
+        ingredient.name = name
+        ingredient.save
+      else
+        ingredient = Ingredient.where(name: name).first
+      end
 
       recipe_ingredient = RecipeIngredient.new
       recipe_ingredient.recipe_id = recipe.id
